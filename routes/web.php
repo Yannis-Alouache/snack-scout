@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
@@ -20,44 +21,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name("home");
 
 Route::get('/products', [ProductController::class, 'index']);
 
 Route::get('/product/{id}', [ProductController::class, 'details']);
 
-Route::get('/cart', [CartController::class, 'index']);
-
-Route::get('/contact', function () {
-    return view('welcome');
-});
-
-Route::get('/checkout', [PaymentController::class, 'index']);
-
 Route::get('/contact', [ContactController::class, 'index']);
 
-Route::get('/signin', [AuthController::class, 'loginPage']);
+Route::get('/signin', [AuthController::class, 'loginPage'])->name("login");
+
+Route::post('/signin', [AuthController::class, 'login']);
 
 Route::get('/register', [AuthController::class, 'registerPage']);
 
-Route::get('/my-orders', [UserController::class, 'myOrders']);
+Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/dashboard', function () {
-    return view('welcome');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index']);
+    
+    Route::get('/checkout', [PaymentController::class, 'index']);
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/my-orders', [UserController::class, 'myOrders']);
 });
 
-Route::get('/dashboard/products', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard/add-product', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard/modify-product', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard/all-orders', function () {
-    return view('welcome');
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    
+    Route::get('/dashboard/products', [DashboardController::class, 'productsList'])->name("dashboard-products-list");
+    
+    Route::get('/dashboard/product/add', [DashboardController::class, 'addProduct']);
+    
+    Route::post('/dashboard/product/add', [ProductController::class, 'store']);
+    
+    Route::get('/dashboard/product/modify/{id}', [DashboardController::class, 'modifyProduct']);
+    
+    Route::get('/dashboard/orders', [DashboardController::class, 'ordersList']);
 });

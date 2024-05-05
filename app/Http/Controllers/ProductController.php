@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -10,75 +11,56 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        $snacksExotiques = [
-            [
-                'id' => 1,
-                'nom' => 'Chips de banane plantain',
-                'origine' => 'Amérique Latine',
-                'prix' => 3.99
-            ],
-            [
-                'id' => 2,
-                'nom' => 'Wasabi Peas',
-                'origine' => 'Japon',
-                'prix' => 2.49
-            ],
-            [
-                'id' => 3,
-                'nom' => 'Mochi glacé',
-                'origine' => 'Japon',
-                'prix' => 5.99
-            ],
-            [
-                'id' => 4,
-                'nom' => 'Biltong',
-                'origine' => 'Afrique du Sud',
-                'prix' => 6.99
-            ],
-            [
-                'id' => 5,
-                'nom' => 'Durian séché',
-                'origine' => 'Thaïlande',
-                'prix' => 4.99
-            ],
-            [
-                'id' => 6,
-                'nom' => 'Jerky de kangourou',
-                'origine' => 'Australie',
-                'prix' => 7.99
-            ],
-            [
-                'id' => 7,
-                'nom' => 'Taro Chips',
-                'origine' => 'Hawaï',
-                'prix' => 3.49
-            ],
-            [
-                'id' => 8,
-                'nom' => 'Pocky Matcha',
-                'origine' => 'Japon',
-                'prix' => 1.99
-            ],
-            [
-                'id' => 9,
-                'nom' => 'Sélection de fruits secs exotiques',
-                'origine' => 'Divers',
-                'prix' => 8.99
-            ],
-            [
-                'id' => 10,
-                'nom' => 'Chips de manioc',
-                'origine' => 'Brésil',
-                'prix' => 3.99
-            ]
-        ];
-        
+        $products = Product::all();
+
         return view('products', [
-            'products' => $snacksExotiques
+            "products" => $products
         ]);
+    
     }
 
     public function details($id): View {
-        return view('product-details');
+        $product = Product::find($id);
+
+        return view('product-details', [
+            "product" => $product
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif',
+            'category' => 'required|string|max:255',
+            'stock' => 'required|string',
+            'discount' => 'required|string'
+        ]);
+
+    
+        try {
+            $product = new Product();
+            $product->name = $request->name;
+            $product->description = $request->description;
+            $product->price = intval($request->price);
+            $product->category = $request->category;
+            $product->stock = intval($request->stock);
+            $product->discount = intval($request->discount);
+    
+            if ($request->hasFile('image')) {
+                $filename = $request->image->getClientOriginalName();
+                $request->image->storeAs('uploads', $filename, 'public');
+                $product->image = $filename;
+            }
+    
+            $product->save();
+    
+            return redirect()->route('dashboard-products-list')->with('success', 'Produit ajouté avec succès.');
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+        }
     }
 }

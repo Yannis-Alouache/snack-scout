@@ -15,11 +15,11 @@
     <!-- product-detail -->
     <div class="container grid grid-cols-2 gap-6">
         <div>
-            <img src="https://picsum.photos/500/" alt="product" class="w-full">
+            <img src="{{ asset('storage/uploads/'.$product->image) }}" alt="product" class="w-full">
         </div>
 
         <div>
-            <h2 class="text-3xl font-medium uppercase mb-2">Italian L Shape Sofa</h2>
+            <h2 class="text-3xl font-medium uppercase mb-2">{{ $product->name }}</h2>
             <div class="flex items-center mb-4">
                 <div class="flex gap-1 text-sm text-yellow-400">
                     <span><i class="fa-solid fa-star"></i></span>
@@ -33,62 +33,38 @@
             <div class="space-y-2">
                 <p class="text-gray-800 font-semibold space-x-2">
                     <span>Availability: </span>
-                    <span class="text-green-600">In Stock</span>
-                </p>
-                <p class="space-x-2">
-                    <span class="text-gray-800 font-semibold">Brand: </span>
-                    <span class="text-gray-600">Apex</span>
+                    <span class="text-green-600">{{ $product->stock }}</span>
                 </p>
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Category: </span>
                     <span class="text-gray-600">Sofa</span>
                 </p>
-                <p class="space-x-2">
-                    <span class="text-gray-800 font-semibold">SKU: </span>
-                    <span class="text-gray-600">BE45VGRT</span>
-                </p>
             </div>
             <div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-                <p class="text-xl text-primary font-semibold">$45.00</p>
-                <p class="text-base text-gray-400 line-through">$55.00</p>
+                <p class="text-xl text-primary font-semibold">{{ $product->price }}€</p>
+                @if ($product->discount > 0)
+                    <p class="text-base text-gray-400 line-through">{{ $product->price - $product->discount }}€</p>
+                @endif
             </div>
 
-            <p class="mt-4 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos eius eum
-                reprehenderit dolore vel mollitia optio consequatur hic asperiores inventore suscipit, velit
-                consequuntur, voluptate doloremque iure necessitatibus adipisci magnam porro.</p>
+            <p class="mt-4 text-gray-600">{{ $product->description }}</p>
 
 
 
-            <div class="mt-4">
-                <h3 class="text-sm text-gray-800 uppercase mb-1">Quantity</h3>
-                <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
-                    <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</div>
-                    <div class="h-8 w-8 text-base flex items-center justify-center">4</div>
-                    <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">+</div>
-                </div>
+            <div class="custom-number-input h-10 w-32 mt-4">
+                <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">Quantité
+                </label>
+                <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                    <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                    <span class="m-auto text-2xl font-thin">−</span>
+                    </button>
+                    <input type="number" class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="0"></input>
+                <button data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                    <span class="m-auto text-2xl font-thin">+</span>
+                </button>
             </div>
 
-            <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
-                <a href="#"
-                    class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
-                    <i class="fa-solid fa-bag-shopping"></i> Ajouter au panier
-                </a>
-            </div>
-
-            <div class="flex gap-3 mt-4">
-                <a href="#"
-                    class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
-                    <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="#"
-                    class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
-                    <i class="fa-brands fa-twitter"></i>
-                </a>
-                <a href="#"
-                    class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-            </div>
+            <input value="Ajouter au panier" class="mt-4 bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" />
         </div>
     </div>
     <!-- ./product-detail -->
@@ -125,5 +101,43 @@
             </table>
         </div>
     </div>
+
+<script>
+  function decrement(e) {
+    const btn = e.target.parentNode.parentElement.querySelector(
+      'button[data-action="decrement"]'
+    );
+    const target = btn.nextElementSibling;
+    let value = Number(target.value);
+    value--;
+    target.value = value;
+  }
+
+  function increment(e) {
+    const btn = e.target.parentNode.parentElement.querySelector(
+      'button[data-action="decrement"]'
+    );
+    const target = btn.nextElementSibling;
+    let value = Number(target.value);
+    value++;
+    target.value = value;
+  }
+
+  const decrementButtons = document.querySelectorAll(
+    `button[data-action="decrement"]`
+  );
+
+  const incrementButtons = document.querySelectorAll(
+    `button[data-action="increment"]`
+  );
+
+  decrementButtons.forEach(btn => {
+    btn.addEventListener("click", decrement);
+  });
+
+  incrementButtons.forEach(btn => {
+    btn.addEventListener("click", increment);
+  });
+</script>
     <!-- ./description -->
 @endsection

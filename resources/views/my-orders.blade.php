@@ -30,71 +30,13 @@
 
         <div class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
             <div class="space-y-1 pl-8">
-                <a href="#" class="block font-medium capitalize transition">
-                    <span class="absolute -left-8 top-0 text-base">
-                        <i class="fa-regular fa-address-card"></i>
-                    </span>
-                    Manage account
-                </a>
-                <a href="#" class="relative hover:text-primary block capitalize transition">
-                    Profile information
-                </a>
-                <a href="#" class="relative hover:text-primary block capitalize transition">
-                    Manage addresses
-                </a>
-                <a href="#" class="relative hover:text-primary block capitalize transition">
-                    Change password
-                </a>
-            </div>
-
-            <div class="space-y-1 pl-8 pt-4">
                 <a href="#" class="relative text-primary block font-medium capitalize transition">
                     <span class="absolute -left-8 top-0 text-base">
                         <i class="fa-solid fa-box-archive"></i>
                     </span>
                     My order history
                 </a>
-                <a href="#" class="relative hover:text-primary block capitalize transition">
-                    My returns
-                </a>
-                <a href="#" class="relative hover:text-primary block capitalize transition">
-                    My Cancellations
-                </a>
-                <a href="#" class="relative hover:text-primary block capitalize transition">
-                    My reviews
-                </a>
             </div>
-
-            <div class="space-y-1 pl-8 pt-4">
-                <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
-                    <span class="absolute -left-8 top-0 text-base">
-                        <i class="fa-regular fa-credit-card"></i>
-                    </span>
-                    Payment methods
-                </a>
-                <a href="#" class="relative hover:text-primary block capitalize transition">
-                    voucher
-                </a>
-            </div>
-
-            <div class="space-y-1 pl-8 pt-4">
-                <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
-                    <span class="absolute -left-8 top-0 text-base">
-                        <i class="fa-regular fa-heart"></i>
-                    </span>
-                    My wishlist
-                </a>
-            </div>
-
-            <div class="space-y-1 pl-8 pt-4">
-                <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
-                    <span class="absolute -left-8 top-0 text-base">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </span>
-                    Logout
-                </a>
-            </div>
-
         </div>
     </div>
     <!-- ./sidebar -->
@@ -112,12 +54,6 @@
                     <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">In Stock</span></p>
                 </div>
                 <div class="text-primary text-lg font-semibold">$320.00</div>
-                <a href="#" class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">add
-                    to cart</a>
-
-                <div class="text-gray-600 cursor-pointer hover:text-primary">
-                    <i class="fa-solid fa-trash"></i>
-                </div>
             </div>
 
             <div class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded">
@@ -129,12 +65,6 @@
                     <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">In Stock</span></p>
                 </div>
                 <div class="text-primary text-lg font-semibold">$320.00</div>
-                <a href="#" class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">add
-                    to cart</a>
-
-                <div class="text-gray-600 cursor-pointer hover:text-primary">
-                    <i class="fa-solid fa-trash"></i>
-                </div>
             </div>
         </div>
 
@@ -149,12 +79,6 @@
                     <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">In Stock</span></p>
                 </div>
                 <div class="text-primary text-lg font-semibold">$320.00</div>
-                <a href="#" class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">add
-                    to cart</a>
-
-                <div class="text-gray-600 cursor-pointer hover:text-primary">
-                    <i class="fa-solid fa-trash"></i>
-                </div>
             </div>
 
             <div class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded">
@@ -166,12 +90,6 @@
                     <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">In Stock</span></p>
                 </div>
                 <div class="text-primary text-lg font-semibold">$320.00</div>
-                <a href="#" class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">add
-                    to cart</a>
-
-                <div class="text-gray-600 cursor-pointer hover:text-primary">
-                    <i class="fa-solid fa-trash"></i>
-                </div>
             </div>
         </div>
     </div>
