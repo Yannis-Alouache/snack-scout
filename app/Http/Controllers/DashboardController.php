@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Category;
 use App\Models\Product;
 
 
@@ -26,7 +27,9 @@ class DashboardController extends Controller
 
     public function addProduct()
     {
-        return view('dashboard-product-add');
+        $categories = Category::all();
+        
+        return view('dashboard-product-add', ['categories' => $categories]);
     }
 
     public function ordersList()

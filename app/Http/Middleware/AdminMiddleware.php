@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
-    {
-        if (!Auth::user()->isAdmin()) {
+    {   
+        if (!Auth::check() || !Auth::user()->isAdmin()) {
             abort(404);
         }
 

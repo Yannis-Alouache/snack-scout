@@ -37,66 +37,14 @@
         <div>
             <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Categories</h3>
             <div class="space-y-2">
-                <div class="flex items-center">
-                    <input type="checkbox" name="cat-1" id="cat-1"
-                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                    <label for="cat-1" class="text-gray-600 ml-3 cusror-pointer">Bedroom</label>
-                    <div class="ml-auto text-gray-600 text-sm">(15)</div>
-                </div>
-                <div class="flex items-center">
-                    <input type="checkbox" name="cat-2" id="cat-2"
-                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                    <label for="cat-2" class="text-gray-600 ml-3 cusror-pointer">Sofa</label>
-                    <div class="ml-auto text-gray-600 text-sm">(9)</div>
-                </div>
-                <div class="flex items-center">
-                    <input type="checkbox" name="cat-3" id="cat-3"
-                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                    <label for="cat-3" class="text-gray-600 ml-3 cusror-pointer">Office</label>
-                    <div class="ml-auto text-gray-600 text-sm">(21)</div>
-                </div>
-                <div class="flex items-center">
-                    <input type="checkbox" name="cat-4" id="cat-4"
-                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                    <label for="cat-4" class="text-gray-600 ml-3 cusror-pointer">Outdoor</label>
-                    <div class="ml-auto text-gray-600 text-sm">(10)</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="pt-4">
-            <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Brands</h3>
-            <div class="space-y-2">
-                <div class="flex items-center">
-                    <input type="checkbox" name="brand-1" id="brand-1"
-                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                    <label for="brand-1" class="text-gray-600 ml-3 cusror-pointer">Cooking Color</label>
-                    <div class="ml-auto text-gray-600 text-sm">(15)</div>
-                </div>
-                <div class="flex items-center">
-                    <input type="checkbox" name="brand-2" id="brand-2"
-                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                    <label for="brand-2" class="text-gray-600 ml-3 cusror-pointer">Magniflex</label>
-                    <div class="ml-auto text-gray-600 text-sm">(9)</div>
-                </div>
-                <div class="flex items-center">
-                    <input type="checkbox" name="brand-3" id="brand-3"
-                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                    <label for="brand-3" class="text-gray-600 ml-3 cusror-pointer">Ashley</label>
-                    <div class="ml-auto text-gray-600 text-sm">(21)</div>
-                </div>
-                <div class="flex items-center">
-                    <input type="checkbox" name="brand-4" id="brand-4"
-                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                    <label for="brand-4" class="text-gray-600 ml-3 cusror-pointer">M&D</label>
-                    <div class="ml-auto text-gray-600 text-sm">(10)</div>
-                </div>
-                <div class="flex items-center">
-                    <input type="checkbox" name="brand-5" id="brand-5"
-                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                    <label for="brand-5" class="text-gray-600 ml-3 cusror-pointer">Olympic</label>
-                    <div class="ml-auto text-gray-600 text-sm">(10)</div>
-                </div>
+                @foreach($categories as $category)
+                    <div class="flex items-center">
+                        <input type="checkbox" name="cat-1" id="cat-1"
+                            class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                        <label for="cat-1" class="text-gray-600 ml-3 cusror-pointer">{{ $category->name }}</label>
+                        <div class="ml-auto text-gray-600 text-sm">(15)</div>
+                    </div>
+                @endforeach
             </div>
         </div>
 
@@ -125,66 +73,14 @@
                 <div>
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Categories</h3>
                     <div class="space-y-2">
-                        <div class="flex items-center">
-                            <input type="checkbox" name="cat-1" id="cat-1"
-                                class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="cat-1" class="text-gray-600 ml-3 cusror-pointer">Bedroom</label>
-                            <div class="ml-auto text-gray-600 text-sm">(15)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="cat-2" id="cat-2"
-                                class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="cat-2" class="text-gray-600 ml-3 cusror-pointer">Sofa</label>
-                            <div class="ml-auto text-gray-600 text-sm">(9)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="cat-3" id="cat-3"
-                                class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="cat-3" class="text-gray-600 ml-3 cusror-pointer">Office</label>
-                            <div class="ml-auto text-gray-600 text-sm">(21)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="cat-4" id="cat-4"
-                                class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="cat-4" class="text-gray-600 ml-3 cusror-pointer">Outdoor</label>
-                            <div class="ml-auto text-gray-600 text-sm">(10)</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pt-4">
-                    <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Brands</h3>
-                    <div class="space-y-2">
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-1" id="brand-1"
-                                class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-1" class="text-gray-600 ml-3 cusror-pointer">Cooking Color</label>
-                            <div class="ml-auto text-gray-600 text-sm">(15)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-2" id="brand-2"
-                                class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-2" class="text-gray-600 ml-3 cusror-pointer">Magniflex</label>
-                            <div class="ml-auto text-gray-600 text-sm">(9)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-3" id="brand-3"
-                                class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-3" class="text-gray-600 ml-3 cusror-pointer">Ashley</label>
-                            <div class="ml-auto text-gray-600 text-sm">(21)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-4" id="brand-4"
-                                class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-4" class="text-gray-600 ml-3 cusror-pointer">M&D</label>
-                            <div class="ml-auto text-gray-600 text-sm">(10)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-5" id="brand-5"
-                                class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-5" class="text-gray-600 ml-3 cusror-pointer">Olympic</label>
-                            <div class="ml-auto text-gray-600 text-sm">(10)</div>
-                        </div>
+                        @foreach($categories as $category)
+                            <div class="flex items-center">
+                                <input type="checkbox" name="cat-1" id="cat-1"
+                                    class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                                <label for="cat-1" class="text-gray-600 ml-3 cusror-pointer">{{ $category->name }}</label>
+                                <!-- <div class="ml-auto text-gray-600 text-sm">(15)</div> -->
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -218,10 +114,6 @@
                         class="border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer">
                         <i class="fa-solid fa-grip-vertical"></i>
                     </div>
-                    <div
-                        class="border border-gray-300 w-10 h-9 flex items-center justify-center text-gray-600 rounded cursor-pointer">
-                        <i class="fa-solid fa-list"></i>
-                    </div>
                 </div>
             </div>
 
@@ -246,8 +138,13 @@
                             </h4>
                         </a>
                         <div class="flex items-baseline mb-1 space-x-2">
-                            <p class="text-xl text-primary font-semibold">{{$product->price}}€</p>
-                            <!-- <p class="text-sm text-gray-400 line-through">$55.90</p> -->
+                            @if ($product->discount > 0)
+                                <p class="text-xl text-primary font-semibold">{{ number_format($product->price * (100 - $product->discount) / 100, 2, '.', ',') }}€</p>
+                                <p class="text-sm text-gray-400 line-through">{{ $product->price }}€</p>
+                            @else
+                                <p class="text-xl text-primary font-semibold">{{ $product->price }}€</p>
+                            @endif
+                            
                         </div>
                     </div>
                     <a href="#"
