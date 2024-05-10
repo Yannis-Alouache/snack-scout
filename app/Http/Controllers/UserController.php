@@ -6,7 +6,5 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function myOrders() {
-        return view('my-orders');
-    }
+    
 }

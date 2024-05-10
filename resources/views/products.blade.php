@@ -3,7 +3,7 @@
 @section('content')
      <!-- breadcrumb -->
      <div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-primary text-base">
+        <a href="/" class="text-primary text-base">
             <i class="fa-solid fa-house"></i>
         </a>
         <span class="text-sm text-gray-400">
@@ -40,7 +40,9 @@
                 @foreach($categories as $category)
                     <div class="flex items-center">
                         <input type="checkbox" name="cat-1" id="cat-1"
-                            class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                            class="text-primary focus:ring-0 rounded-sm cursor-pointer"
+                            @if(request()->has('category') && request()->category == $category->name) checked @endif
+                        >
                         <label for="cat-1" class="text-gray-600 ml-3 cusror-pointer">{{ $category->name }}</label>
                         <div class="ml-auto text-gray-600 text-sm">(15)</div>
                     </div>
@@ -50,15 +52,18 @@
 
         <div class="pt-4">
             <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Price</h3>
-            <div class="mt-4 flex items-center">
-                <input type="text" name="min" id="min"
-                    class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
-                    placeholder="min">
-                <span class="mx-3 text-gray-500">-</span>
-                <input type="text" name="max" id="max"
-                    class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
-                    placeholder="max">
-            </div>
+            <form action="{{ url()->current() }}" method="GET">
+                <div class="mt-4 flex items-center">
+                    <input type="text" name="min" id="min"
+                        class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
+                        placeholder="min" value="{{ request('min') }}">
+                    <span class="mx-3 text-gray-500">-</span>
+                    <input type="text" name="max" id="max"
+                        class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
+                        placeholder="max" value="{{ request('max') }}">
+                </div>
+                <button class="mt-4 w-full bg-primary text-white px-8 rounded-md py-2" type="submit">Filtrer</button>
+            </form>
         </div>
     </div>
     <div class="grid grid-cols-2 gap-4">
@@ -76,7 +81,10 @@
                         @foreach($categories as $category)
                             <div class="flex items-center">
                                 <input type="checkbox" name="cat-1" id="cat-1"
-                                    class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                                    class="text-primary focus:ring-0 rounded-sm cursor-pointer"
+                                    @if(request()->has('category') && request()->category == $category->name) checked @endif
+                                    onclick="updateUrl('{{ $category->name }}')"
+                                >
                                 <label for="cat-1" class="text-gray-600 ml-3 cusror-pointer">{{ $category->name }}</label>
                                 <!-- <div class="ml-auto text-gray-600 text-sm">(15)</div> -->
                             </div>
@@ -86,37 +94,23 @@
 
                 <div class="pt-4">
                     <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Price</h3>
-                    <div class="mt-4 flex items-center">
-                        <input type="text" name="min" id="min"
-                            class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
-                            placeholder="min">
-                        <span class="mx-3 text-gray-500">-</span>
-                        <input type="text" name="max" id="max"
-                            class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
-                            placeholder="max">
-                    </div>
+                    <form action="{{ url()->current() }}" method="GET">
+                        <div class="mt-4 flex items-center">
+                            <input type="text" name="min" id="min"
+                                class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
+                                placeholder="min" value="{{ request('min') }}">
+                            <span class="mx-3 text-gray-500">-</span>
+                            <input type="text" name="max" id="max"
+                                class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
+                                placeholder="max" value="{{ request('max') }}">
+                        </div>
+                        <button class="mt-4 w-full bg-primary text-white px-8 rounded-md py-2" type="submit">Filtrer</button>
+                    </form>
                 </div>
             </div>
         </div>
         <!-- products -->
         <div class="col-span-3">
-            <div class="flex items-center mb-4">
-                <select name="sort" id="sort"
-                    class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary">
-                    <option value="">Default sorting</option>
-                    <option value="price-low-to-high">Price low to high</option>
-                    <option value="price-high-to-low">Price high to low</option>
-                    <option value="latest">Latest product</option>
-                </select>
-
-                <div class="flex gap-2 ml-auto">
-                    <div
-                        class="border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer">
-                        <i class="fa-solid fa-grip-vertical"></i>
-                    </div>
-                </div>
-            </div>
-
             <div class="grid md:grid-cols-3 grid-cols-2 gap-6">
                 @foreach ($products as $product)
                 <div class="bg-white shadow rounded overflow-hidden group">
@@ -147,9 +141,10 @@
                             
                         </div>
                     </div>
-                    <a href="#"
-                        class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add
-                        to cart</a>
+                    <a href="{{ route('add.to.cart', ['id' => $product->id, 'quantity' => 1]) }}"
+                        class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">
+                        Ajouter au panier
+                    </a>
                 </div>
                 @endforeach
             </div>
@@ -159,6 +154,23 @@
     </div>
     <!-- ./shop wrapper -->
 
+
+    <script>
+    function updateUrl(category) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCategory = urlParams.get('category');
+        
+        if (currentCategory === category) {
+            // Désélectionne la catégorie si elle est déjà sélectionnée
+            urlParams.delete('category');
+        } else {
+            // Remplace la catégorie actuellement sélectionnée par la nouvelle catégorie
+            urlParams.set('category', category);
+        }
+        
+        window.location.search = urlParams.toString();
+    }
+</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 

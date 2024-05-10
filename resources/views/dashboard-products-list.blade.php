@@ -76,10 +76,11 @@
                             <button type="button" class="dropdown-toggle text-gray-400 hover:text-gray-600 text-sm w-6 h-6 rounded flex items-center justify-center bg-gray-50"><i class="ri-more-2-fill"></i></button>
                             <ul class="dropdown-menu shadow-md shadow-black/5 z-30 py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px] hidden" data-popper-id="popper-7" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(-110px, 915px);" data-popper-placement="bottom-end">
                                 <li>
-                                    <a href="product/modify/1" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-500 hover:bg-gray-50">Modifier</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-500 hover:bg-gray-50">Supprimer</a>
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-500 hover:bg-gray-50">Supprimer</button>
+                                    </form>    
                                 </li>
                             </ul>
                         </div>

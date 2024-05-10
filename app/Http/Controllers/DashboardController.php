@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
+use App\Order;
 
 
 class DashboardController extends Controller
@@ -20,11 +21,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function modifyProduct()
-    {
-        return view('dashboard-product-modify');
-    }
-
     public function addProduct()
     {
         $categories = Category::all();
@@ -34,6 +30,8 @@ class DashboardController extends Controller
 
     public function ordersList()
     {
-        return view('dashboard-orders');
+        $orders = Order::all();
+
+        return view('dashboard-orders', ["orders" => $orders]);
     }
 }

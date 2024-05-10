@@ -10,9 +10,25 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $products = Product::all();
+        $category = $request->input('category');
+        $min = $request->input('min');
+        $max = $request->input('max');
+        $query = Product::query();
+
+        if (isset($category)) {
+            $query->where('category', '=', $category);
+        }
+        if (isset($max)) {
+            $query->where('price', '<=', $request->max);
+            $query->where('price', '>=', 0);
+        }
+        if (isset($min)) {
+            $query->where('price', '>=', $request->min);
+        }
+        $products = $query->get();
+
         $categories = Category::all();
 
         return view('products', [
@@ -32,23 +48,21 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp',
             'category' => 'required|string|max:255',
             'stock' => 'required|string',
             'discount' => 'required|string'
         ]);
-
-    
+        
         try {
             $product = new Product();
             $product->name = $request->name;
             $product->description = $request->description;
-            $product->price = intval($request->price);
+            $product->price = floatval($request->price);
             $product->category = $request->category;
             $product->stock = intval($request->stock);
             $product->discount = intval($request->discount);
@@ -63,7 +77,14 @@ class ProductController extends Controller
     
             return redirect()->route('dashboard-products-list')->with('success', 'Produit ajouté avec succès.');
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
+            dd($e->getMessage());
         }
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->route('dashboard-products-list');
     }
 }

@@ -20,7 +20,6 @@
         rel="stylesheet"
     >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 
 <body>
@@ -40,9 +39,6 @@
                             <i class="fa-solid fa-bag-shopping"></i>
                         </div>
                         <div class="text-xs leading-3">Panier</div>
-                        <div
-                            class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                            2</div>
                     </a>
                     <a href="/my-orders" class="text-center text-gray-700 hover:text-primary transition relative">
                         <div class="text-2xl">

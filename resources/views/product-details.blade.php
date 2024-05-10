@@ -1,8 +1,15 @@
 @extends('layout')
 
 @section('content')
-<div class="container py-4 flex items-center gap-3">
-        <a href="../index.html" class="text-primary text-base">
+    @if(session('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Erreur !</strong>
+            <span class="block sm:inline">{{ session('error') }}</span>
+        </div>
+    @endif
+
+    <div class="container py-4 flex items-center gap-3">
+        <a href="/" class="text-primary text-base">
             <i class="fa-solid fa-house"></i>
         </a>
         <span class="text-sm text-gray-400">
@@ -19,24 +26,14 @@
         </div>
 
         <div>
-            <h2 class="text-3xl font-medium uppercase mb-2">{{ $product->name }}</h2>
-            <div class="flex items-center mb-4">
-                <div class="flex gap-1 text-sm text-yellow-400">
-                    <span><i class="fa-solid fa-star"></i></span>
-                    <span><i class="fa-solid fa-star"></i></span>
-                    <span><i class="fa-solid fa-star"></i></span>
-                    <span><i class="fa-solid fa-star"></i></span>
-                    <span><i class="fa-solid fa-star"></i></span>
-                </div>
-                <div class="text-xs text-gray-500 ml-3">(150 Reviews)</div>
-            </div>
+            <h2 class="text-3xl font-medium uppercase mb-10">{{ $product->name }}</h2>
             <div class="space-y-2">
                 <p class="text-gray-800 font-semibold space-x-2">
-                    <span>Availability: </span>
+                    <span>Quantité disponible: </span>
                     <span class="text-green-600">{{ $product->stock }}</span>
                 </p>
                 <p class="space-x-2">
-                    <span class="text-gray-800 font-semibold">Category: </span>
+                    <span class="text-gray-800 font-semibold">Catégorie: </span>
                     <span class="text-gray-600">{{ $product->category }}</span>
                 </p>
             </div>
@@ -58,15 +55,20 @@
                     <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
                     <span class="m-auto text-2xl font-thin">−</span>
                     </button>
-                    <input type="number" value="1" class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number"></input>
+                    <input id="quantityInput" type="number" min="1" value="1" class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number"></input>
                 <button data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
                     <span class="m-auto text-2xl font-thin">+</span>
                 </button>
             </div>
-
-            <input value="Ajouter au panier" class="mt-4 bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" />
+        
+            <div class="w-[400px] mt-10">
+                <a href="javascript:void(0);" onclick="addToCartWithQuantity()" class="mt-4 bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded cursor-pointer">
+                    Ajouter au panier
+                </a>
+            </div>
         </div>
     </div>
+    
     <!-- ./product-detail -->
 
     <!-- description -->
@@ -102,15 +104,29 @@
         </div>
     </div>
 
+
+    
+<script>
+    function addToCartWithQuantity() {
+        var quantity = document.getElementById("quantityInput").value;
+        var productId = "{{ $product->id }}";
+        window.location.href = "{{ route('add.to.cart', ['id' => ':id', 'quantity' => ':quantity']) }}".replace(':id', productId).replace(':quantity', quantity);
+    }
+</script>
+
 <script>
   function decrement(e) {
     const btn = e.target.parentNode.parentElement.querySelector(
       'button[data-action="decrement"]'
     );
+
     const target = btn.nextElementSibling;
     let value = Number(target.value);
-    value--;
-    target.value = value;
+
+    if (value > 1) {
+        value--;
+        target.value = value;
+    }
   }
 
   function increment(e) {
